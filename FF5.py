@@ -5,6 +5,7 @@ Created on Wed Apr 29 21:44:42 2020
 @author: Stephen Downhower
 """
 
+import time
 
 triangleExample = [3,
                    7,4,
@@ -71,12 +72,19 @@ def findTriangleMax(triangle):
     flattened.append(flattenTwoLevels(treeArray[0], treeArray[1]))
     for i in range(levels - 2): 
         flattened.append(flattenTwoLevels(flattened[-1], treeArray[i + 2]))
-    
+
     # Finds the max value in each node and then returns the max value found in
     # all nodes
-    return max(max(flattened[-1]))
+    nodeMaxes = []
+    for i in range(len(flattened[-1])):
+        nodeMaxes.append(max(flattened[-1][i]))
+        
+    return max(nodeMaxes)
+        
 
 if __name__ == '__main__':
+    start = time.time()
     maxValue = findTriangleMax(triangleExample) # Feel free to plug in a different triangle array here
-    
+    finish = time.time() - start
     print('Triangle Example Calculation: ' + str(maxValue))
+    print('Calculated in ' + str(finish) + ' s')
